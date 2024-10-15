@@ -10,7 +10,7 @@
 
     <div><h2>{{ $note->title ?? 'Untitled' }}</h2></div>
     <div><i>{{ $note->description ?? 'no description' }}</i></div><br>
-    <div>{{$note->content}}</div>
+    <div>{{$note->content ?? ''}}</div>
 
     <div><p><strong>Last Updated:</strong> {{ $note->updated_at->diffForHumans() }}</p></div>
 

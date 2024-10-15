@@ -16,7 +16,7 @@
         <label for="description">Description</label>
         <input type="text" id="description" name="description"><br>
         <label for="content">Content</label>
-        <input type="text" id="content" name="content" required><br>
+        <input type="text" id="content" name="content"><br>
 
         <br>
         <button type="submit">Save</button>

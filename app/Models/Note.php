@@ -12,14 +12,4 @@ class Note extends Model
         'description',
         'content',
     ];
-
-    public function getContentAttribute($value)
-    {
-        return decrypt($value);
-    }
-
-    public function setContentAttribute($value)
-    {
-        $this->attributes['content'] = encrypt($value);
-    }
 }
