@@ -17,6 +17,10 @@
         <input value="{{$note->description}}" type="text" id="description" name="description"><br>
         <label for="content">Content</label>
         <input value="{{$note->content}}" type="text" id="content" name="content"><br>
+        <div class="form-group">
+            <label for="image">Upload Image</label>
+            <input value="{{$note->image}}" type="file" name="image" class="form-control">
+        </div>
         
         <br>
         <button type="submit">Update</button>

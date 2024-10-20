@@ -8,7 +8,7 @@
 <body>
     <h1>Create Note</h1>
 
-    <form action="{{route('saveNote')}}" method="POST">
+    <form action="{{route('saveNote')}}" method="POST" enctype="multipart/form-data">
         @method('POST')
         @csrf
         <label for="title">Title</label>
@@ -17,9 +17,13 @@
         <input type="text" id="description" name="description"><br>
         <label for="content">Content</label>
         <input type="text" id="content" name="content"><br>
+        <div class="form-group">
+            <label for="image">Upload Image</label>
+            <input type="file" name="image" class="form-control">
+        </div>
 
         <br>
-        <button type="submit">Save</button>
+        <button type="submit" class="btn btn-primary">Save</button>
     </form>
 
     <form action="{{route('showAllNotes')}}" method="GET">

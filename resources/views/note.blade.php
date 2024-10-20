@@ -12,6 +12,10 @@
     <div><i>{{ $note->description ?? 'no description' }}</i></div><br>
     <div>{{$note->content ?? ''}}</div>
 
+    @if($note->image)
+            <img src="{{ asset('storage/' . $note->image) }}" alt="Note Image" style="max-width: 300px;">
+    @endif
+
     <div><p><strong>Last Updated:</strong> {{ $note->updated_at->diffForHumans() }}</p></div>
 
     <br>

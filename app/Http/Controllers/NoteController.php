@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Note;
+use Illuminate\Support\Facades\Storage;
 
 class NoteController extends Controller
 {
@@ -25,12 +26,19 @@ class NoteController extends Controller
             'title' => 'nullable|string|max:50',
             'description' => 'nullable|string|max:100',
             'content' => 'nullable|string|max:1000',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        }
 
         $note = new Note();
         $note->title = $validated['title'];
         $note->description = $validated['description'];
         $note->content = $validated['content'];
+        $note->image = $imagePath;
         $note->save();
 
         return redirect()->route('showAllNotes')->with('success', 'Note created successfully.');
@@ -60,13 +68,24 @@ class NoteController extends Controller
         return view('edit-note', ['note' => $note]);
     }
 
-    public function updateNote(Request $request)
+    public function updateNote(Request $request, Note $note)
     {
         $validated = $request->validate([
             'title' => 'nullable|string|max:50',
             'description' => 'nullable|string|max:100',
             'content' => 'required|string|max:1000',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            // Delete the old image if a new one is uploaded
+            if ($note->image) {
+                Storage::disk('public')->delete($note->image);
+            }
+    
+            // Store the new image
+            $note->image = $request->file('image')->store('images', 'public');
+        }
 
         $note = Note::find($request->id);
         $note->title = $validated['title'];

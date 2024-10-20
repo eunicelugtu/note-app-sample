@@ -12,7 +12,6 @@ class Note extends Model
         'title',
         'description',
         'content',
+        'image',
     ];
-
-    protected $dates = ['deleted_at'];
 }
