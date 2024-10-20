@@ -77,17 +77,30 @@ class NoteController extends Controller
         return redirect()->route('showNote', ['id' => $note->id])->with('success', 'Note updated successfully.');
     }
 
-    public function trashNote(Request $request)
+    public function deleteNote(Request $request)
     {
         $note = Note::find($request->id);
-        $note->delete();
+
+        if ($note)
+        {
+            $note->delete();
+        }
 
         return redirect()->route('showAllNotes')->with('success', 'Note deleted successfully.');
     }
 
-    public function showAllTrashed()
+    public function searchNote(Request $request)
     {
-        $trashednotes = Note::onlyTrashed()->get();
-        return view('trash-notes', ['trashednotes' => $trashednotes]);
+        // Get the search term from the query string
+        $query = $request->input('query');
+
+        // Search the users table for a matching name or email (adjust for your needs)
+        $results = Note::where('title', 'LIKE', "%{$query}%")
+                        ->orWhere('description', 'LIKE', "%{$query}%")
+                        ->orWhere('content', 'LIKE', "%{$query}%")
+                        ->get();
+
+        // Return a view with the results
+        return view('search-results', ['results' => $results]);
     }
 }

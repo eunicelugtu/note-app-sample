@@ -15,6 +15,15 @@
     <div><p><strong>Last Updated:</strong> {{ $note->updated_at->diffForHumans() }}</p></div>
 
     <br>
+    <form action="{{route('editNote', ['id' => $note->id])}}" method="GET">
+            <button type="submit">Edit</button>
+        </form>
+        <form action="{{route('deleteNote', ['id' => $note->id])}}" method="POST"
+        onsubmit="return confirm('Are you sure?')">
+            @method('DELETE')
+            @csrf
+            <button type="submit">Delete</button>
+        </form>
     <form action="{{route('showAllNotes')}}" method="GET">
         <button type="submit">Back to Notes</button>
     </form>

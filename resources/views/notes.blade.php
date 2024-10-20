@@ -8,11 +8,13 @@
 <body>
     <h1>Notes</h1>
 
+    <form action="{{ route('searchNote') }}" method="GET">
+        <input type="text" name="query" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
+
     <form action="{{route('createNote')}}" method="GET">
         <button type="submit">Add Note</button>
-    </form>
-    <form action="{{route('showAllTrashed')}}" method="GET">
-        <button type="submit">Show Trashbin</button>
     </form>
     <br>
 
@@ -29,9 +31,9 @@
         <form action="{{route('editNote', ['id' => $note->id])}}" method="GET">
             <button type="submit">Edit</button>
         </form>
-        <form action="{{route('trashNote', ['id' => $note->id])}}" method="POST"
+        <form action="{{route('deleteNote', ['id' => $note->id])}}" method="POST"
         onsubmit="return confirm('Are you sure?')">
-            @method('POST')
+            @method('DELETE')
             @csrf
             <button type="submit">Delete</button>
         </form>
