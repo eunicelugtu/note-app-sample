@@ -11,7 +11,7 @@
     <form action="{{ route('searchNote') }}" method="GET">
         <input type="text" name="query" placeholder="Search...">
         <button type="submit">Search</button>
-    </form>
+    </form><br>
 
     <form action="{{route('createNote')}}" method="GET">
         <button type="submit">Add Note</button>

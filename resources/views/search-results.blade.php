@@ -25,6 +25,11 @@
             </form>
             <hr>
         @endforeach
+
+        <br>
+        <form action="{{route('showAllNotes')}}" method="GET">
+            <button type="submit">Back To Notes</button>
+        </form>
     @endif
     
 </body>
