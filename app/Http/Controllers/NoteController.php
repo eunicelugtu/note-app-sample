@@ -77,15 +77,17 @@ class NoteController extends Controller
         return redirect()->route('showNote', ['id' => $note->id])->with('success', 'Note updated successfully.');
     }
 
-    public function deleteNote(Request $request)
+    public function trashNote(Request $request)
     {
         $note = Note::find($request->id);
-
-        if ($note)
-        {
-            $note->delete();
-        }
+        $note->delete();
 
         return redirect()->route('showAllNotes')->with('success', 'Note deleted successfully.');
+    }
+
+    public function showAllTrashed()
+    {
+        $trashednotes = Note::onlyTrashed()->get();
+        return view('trash-notes', ['trashednotes' => $trashednotes]);
     }
 }
