@@ -84,13 +84,16 @@ class NoteController extends Controller
             }
     
             // Store the new image
-            $note->image = $request->file('image')->store('images', 'public');
+            $imagePath = $request->file('image')->store('images', 'public');
+
+
         }
 
         $note = Note::find($request->id);
         $note->title = $validated['title'];
         $note->description = $validated['description'];
         $note->content = $validated['content'];
+        $note->image = $imagePath;
         $note->save();
 
         return redirect()->route('showNote', ['id' => $note->id])->with('success', 'Note updated successfully.');
@@ -110,16 +113,13 @@ class NoteController extends Controller
 
     public function searchNote(Request $request)
     {
-        // Get the search term from the query string
         $query = $request->input('query');
 
-        // Search the users table for a matching name or email (adjust for your needs)
         $results = Note::where('title', 'LIKE', "%{$query}%")
                         ->orWhere('description', 'LIKE', "%{$query}%")
                         ->orWhere('content', 'LIKE', "%{$query}%")
                         ->get();
 
-        // Return a view with the results
         return view('search-results', ['results' => $results]);
     }
 }

@@ -6,31 +6,33 @@
     <title>Notes App</title>
 </head>
 <body>
-    <h1>Current Note</h1>
+    <div class="note-container">
+        <h1>Current Note</h1>
 
-    <div><h2>{{ $note->title ?? 'Untitled' }}</h2></div>
-    <div><i>{{ $note->description ?? 'no description' }}</i></div><br>
-    <div>{{$note->content ?? ''}}</div>
+        <div><h2>{{ $note->title ?? 'Untitled' }}</h2></div>
+        <div><i>{{ $note->description ?? 'no description' }}</i></div><br>
+        <div>{{$note->content ?? ''}}</div>
+        <div id="container">
+            @if($note->image)
+                    <img src="{{ asset('storage/' . $note->image) }}" alt="Note Image" style="max-width: 300px;">
+            @endif
+        </div>
+        <div><p><strong>Last Updated:</strong> {{ $note->updated_at->diffForHumans() }}</p></div>
 
-    @if($note->image)
-            <img src="{{ asset('storage/' . $note->image) }}" alt="Note Image" style="max-width: 300px;">
-    @endif
-
-    <div><p><strong>Last Updated:</strong> {{ $note->updated_at->diffForHumans() }}</p></div>
-
-    <br>
-    <form action="{{route('editNote', ['id' => $note->id])}}" method="GET">
-            <button type="submit">Edit</button>
+        <br>
+        <form action="{{route('editNote', ['id' => $note->id])}}" method="GET" style="display:inline">
+            <button type="submit" class="btn-edit">Edit</button>
         </form>
-        <form action="{{route('deleteNote', ['id' => $note->id])}}" method="POST"
+        <form action="{{route('deleteNote', ['id' => $note->id])}}" method="POST" style="display:inline"
         onsubmit="return confirm('Are you sure?')">
             @method('DELETE')
             @csrf
-            <button type="submit">Delete</button>
+            <button type="submit" class="btn-delete">Delete</button>
         </form>
-    <form action="{{route('showAllNotes')}}" method="GET">
-        <button type="submit">Back to Notes</button>
-    </form>
-    
+
+        <form action="{{route('showAllNotes')}}" method="GET" style="display:inline;">
+            <button type="submit" class="btn-view">Back to Notes</button>
+        </form> 
+    </div>
 </body>
 </html>
