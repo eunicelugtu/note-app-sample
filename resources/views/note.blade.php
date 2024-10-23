@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://127.0.0.1:8000/css/app.css">
     <title>Notes App</title>
 </head>
 <body>

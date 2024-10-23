@@ -84,7 +84,7 @@ class NoteController extends Controller
             }
     
             // Store the new image
-            $imagePath = $request->file('image')->store('images', 'public');
+            $note->image = $request->file('image')->store('images', 'public');
 
 
         }
@@ -93,7 +93,6 @@ class NoteController extends Controller
         $note->title = $validated['title'];
         $note->description = $validated['description'];
         $note->content = $validated['content'];
-        $note->image = $imagePath;
         $note->save();
 
         return redirect()->route('showNote', ['id' => $note->id])->with('success', 'Note updated successfully.');
